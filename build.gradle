@@ -28,11 +28,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
-
+	implementation files('lib/html2image-0.9.jar')
 	implementation 'io.github.bonigarcia:webdrivermanager:5.6.2'
-	implementation 'org.seleniumhq.selenium:selenium-java'
+	implementation 'org.seleniumhq.selenium:selenium-java:4.0.0'
 
-	implementation 'com.api2pdf.client:api2pdf:2.0.0'
+//	implementation 'com.api2pdf.client:api2pdf:2.0.0'
 	//compileOnly 'com.aspose:aspose-total:23.10'
 	//compile(group: 'com.aspose', name: 'aspose-total', version: '23.10')
 }

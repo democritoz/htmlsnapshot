@@ -1,8 +1,6 @@
 package com.ziofront.htmlsnapshot.controller;
 
-import com.api2pdf.client.Api2PdfClient;
-import com.api2pdf.models.Api2PdfResponse;
-import com.sun.tools.javac.Main;
+import gui.ava.html.image.generator.HtmlImageGenerator;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -30,26 +28,6 @@ public class TestController {
 
 
     private static final String URL = "https://map.kakao.com/?urlX=499319&urlY=1129617&urlLevel=3&itemId=8124186&q=%ED%95%98%EB%82%98%EC%9D%80%ED%96%89%20%EC%9D%84%EC%A7%80%EB%A1%9C%EA%B8%88%EC%9C%B5%EC%84%BC%ED%84%B0&srcid=8124186&map_type=TYPE_MAP";
-    @GetMapping("/test001")
-    public ResponseEntity<Map<String, Object>> test() {
-
-        Map<String, Object> responseMap = new HashMap<>();
-        Api2PdfClient api2PdfClient = new Api2PdfClient("1cb91cd0-93c8-4158-8539-f9ce1302b56e");
-
-        try {
-            Api2PdfResponse response = api2PdfClient.chromeUrlToImage(URL               , true, "testimg");
-
-            responseMap.put("response", response.getFile());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        responseMap.put("hello", "world");
-
-        return ResponseEntity.ok(responseMap);
-    }
-
 
     @GetMapping("/test002")
     public ResponseEntity<Map<String, Object>> test002() {
@@ -94,6 +72,25 @@ public class TestController {
 //                .getResourceAsStream(scrFile.getName());
 //        return IOUtils.toByteArray(in);
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+
+    }
+
+    @GetMapping(value = "/test004", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public @ResponseBody byte[] test004() throws Exception {
+
+        HtmlImageGenerator htmlImageGenerator = new HtmlImageGenerator();
+        htmlImageGenerator.loadUrl(URL);
+
+        File file = new File("./result");
+        htmlImageGenerator.saveAsImage(file);
+
+        return IOUtils.toByteArray(FileUtils.openInputStream(file));
+
+//        File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//        log.debug("scrFile.getName()=[{}]", scrFile.getName());
+//        InputStream in = getClass()
+//                .getResourceAsStream(scrFile.getName());
+//        return IOUtils.toByteArray(in);
 
     }
 }
