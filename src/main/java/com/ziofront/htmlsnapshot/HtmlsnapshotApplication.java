@@ -9,7 +9,8 @@ public class HtmlsnapshotApplication {
 
 	public static void main(String[] args) {
 
-		WebDriverManager.chromedriver().setup();
+		WebDriverManager.chromedriver().browserInDocker().setup();
+//		WebDriverManager.chromedriver().setup();
 		SpringApplication.run(HtmlsnapshotApplication.class, args);
 	}
 
