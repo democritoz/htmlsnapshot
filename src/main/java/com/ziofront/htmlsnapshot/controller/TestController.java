@@ -2,6 +2,7 @@ package com.ziofront.htmlsnapshot.controller;
 
 import com.api2pdf.client.Api2PdfClient;
 import com.api2pdf.models.Api2PdfResponse;
+import com.sun.tools.javac.Main;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -79,9 +80,11 @@ public class TestController {
 
 
     @GetMapping(value = "/test003", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody byte[] test003() throws IOException {
+    public @ResponseBody byte[] test003() throws Exception {
 
-        WebDriver driver = WebDriverManager.chromedriver().browserInDocker().create();
+        WebDriver driver = WebDriverManager.chromedriver().browserInDocker()
+                .remoteAddress("http://localhost:4445/wd/hub").create();
+
 
         driver.get(URL);
 
