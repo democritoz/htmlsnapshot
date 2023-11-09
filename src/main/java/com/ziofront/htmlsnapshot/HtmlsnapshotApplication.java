@@ -10,11 +10,11 @@ public class HtmlsnapshotApplication {
 
 	public static void main(String[] args) throws Exception {
 
-		Main.main(new String[] { "standalone", "--port", "4445" });
 
 		WebDriverManager.chromedriver().browserInDocker()
-				.remoteAddress("http://localhost:4445/wd/hub")
 				.setup();
+
+		Main.main(new String[] { "standalone", "--port", "4445" });
 
 
 //		WebDriverManager.chromedriver().setup();
