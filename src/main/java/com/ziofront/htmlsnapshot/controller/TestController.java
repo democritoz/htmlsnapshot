@@ -81,7 +81,7 @@ public class TestController {
     @GetMapping(value = "/test003", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody byte[] test003() throws IOException {
 
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = WebDriverManager.chromedriver().browserInDocker().create();
 
         driver.get(URL);
 
